@@ -155,10 +155,10 @@ def save_values(
                          len(decrypt_str), len(decr_bl_save)),
                         ("message", f"\'{msg_save}\'", len(msg_save), math.ceil(len(msg_save) / 3)),
                         (),
-                        ("text", "block", "encrypt block", "decrypt block", "message")])
+                        ("i", "text", "v", "u", "w", "message")])
 
     for i in range(len(text_bl_save)):
-        saving_data.append((text_save[i * BLOCK_LENGTH:i * BLOCK_LENGTH + 3],
+        saving_data.append((i + 1, text_save[i * BLOCK_LENGTH:i * BLOCK_LENGTH + 3],
                             text_bl_save[i], encr_bl_save[i], decr_bl_save[i],
                             msg_save[i * BLOCK_LENGTH:i * BLOCK_LENGTH + 3]))
 
