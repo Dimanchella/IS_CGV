@@ -113,6 +113,13 @@ def decrypt_blocks(blocks_list: list[int], key: int, mod: int):
     return encrypt_blocks(blocks_list, key, mod)
 
 
+def convert_block_to_str(block: int):
+    str_block = str(block)
+    if len(str_block) < BLOCK_LENGTH * 2:
+        str_block = '0' * (BLOCK_LENGTH * 2 - len(str_block)) + str_block
+    return str_block
+
+
 def save_values(
         p_save: int, g_save: int, n_save: int,
         es_save: int, e_save: int, fn_save: int,
@@ -136,9 +143,9 @@ def save_values(
                             euclid_save[i]["s1"], euclid_save[i]["s2"], euclid_save[i]["s"],
                             euclid_save[i]["t1"], euclid_save[i]["t2"], euclid_save[i]["t"]))
 
-    blocks_str = ''.join(map(str, text_bl_save))
-    encrypt_str = ''.join(map(str, encr_bl_save))
-    decrypt_str = ''.join(map(str, decr_bl_save))
+    blocks_str = ''.join(map(convert_block_to_str, text_bl_save))
+    encrypt_str = ''.join(map(convert_block_to_str, encr_bl_save))
+    decrypt_str = ''.join(map(convert_block_to_str, decr_bl_save))
     saving_data.extend([(),
                         ("НОД", "s", "a", "t", "b"),
                         (euclid_save[-1]["r1"], euclid_save[-1]["s1"],
@@ -159,7 +166,9 @@ def save_values(
 
     for i in range(len(text_bl_save)):
         saving_data.append((i + 1, text_save[i * BLOCK_LENGTH:i * BLOCK_LENGTH + 3],
-                            text_bl_save[i], encr_bl_save[i], decr_bl_save[i],
+                            f"\'{convert_block_to_str(text_bl_save[i])}\'",
+                            f"\'{convert_block_to_str(encr_bl_save[i])}\'",
+                            f"\'{convert_block_to_str(decr_bl_save[i])}\'",
                             msg_save[i * BLOCK_LENGTH:i * BLOCK_LENGTH + 3]))
 
     with open("output.csv", "w+", newline='') as csv_file:
