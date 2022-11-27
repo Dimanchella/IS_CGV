@@ -136,12 +136,24 @@ def save_values(
                             euclid_save[i]["s1"], euclid_save[i]["s2"], euclid_save[i]["s"],
                             euclid_save[i]["t1"], euclid_save[i]["t2"], euclid_save[i]["t"]))
 
+    blocks_str = ''.join(map(str, text_bl_save))
+    encrypt_str = ''.join(map(str, encr_bl_save))
+    decrypt_str = ''.join(map(str, decr_bl_save))
     saving_data.extend([(),
                         ("НОД", "s", "a", "t", "b"),
                         (euclid_save[-1]["r1"], euclid_save[-1]["s1"],
                          euclid_save[0]["r1"], euclid_save[-1]["t1"],
                          euclid_save[0]["r2"]),
                         ("d = mod(t,f(n)) =", d_save),
+                        (),
+                        ("text", f"\'{text_save}\'", len(text_save), len(text_bl_save)),
+                        ("blocks", f"\'{blocks_str}\'",
+                         len(blocks_str), len(text_bl_save)),
+                        ("encrypt", f"\'{encrypt_str}\'",
+                         len(encrypt_str), len(encr_bl_save)),
+                        ("decrypt", f"\'{decrypt_str}\'",
+                         len(decrypt_str), len(decr_bl_save)),
+                        ("message", f"\'{msg_save}\'", len(msg_save), math.ceil(len(msg_save) / 3)),
                         (),
                         ("text", "block", "encrypt block", "decrypt block", "message")])
 
